@@ -7,16 +7,12 @@ from redis import Redis
 
 
 
-class jdListCrawler(scrapy.Spider):
-    name='getGoodsList'
-    # redis_keys = 'jdlist:start_urls'
+class jdListCrawler(RedisSpider):
+    name='jd'
+    redis_keys = 'jdlist:start_urls'
 
     def __init__(self):
-        super(jdListCrawler, self).__init__()
-        self.start_urls = ['https://list.jd.com/list.html?cat=9987,653,655']
-        self.allowed_domain = ['jd.com']
-        # domain = kargs.pop('domain','')
-        # self.allowed_domains = filter(None,domain.split(','))
+        allowed_domains = ['www.jd.com','jd.com']
         self.driver = webdriver.Firefox()
         self.driver.set_page_load_timeout(5)  # throw a TimeoutException when thepage load time is more than 5 seconds.
         # super(jdListCrawler, self).__init__(*args,**kargs)
@@ -27,19 +23,17 @@ class jdListCrawler(scrapy.Spider):
         jd = JdListLoader(response=response)
         urls = []
         self.driver.get(response.url)
-        # redis = Redis()
+        redis = Redis()
         while True:
             wait = WebDriverWait(self.driver,2)
             wait.until(lambda driver:driver.find_elements_by_xpath('//div[@class="container"]//li[@class="gl-item"]//div[@class="p-img"]//img/src'))
-            sel_list = self.driver.find_elements_by_xpath("//div[@class='container']//li[@class='gl-item']")
-            url_list = [sel.get_attribute("href") for sel in sel_list]
-        # for sel in self.find_elements_by_xpath('//div[@class="p-name"]/a').driver.find_elements_by_xpath("//div[@class='container']//li[@class='gl-item']//div[@class='p-name']/a"):
-        #         url = sel.find_elements_by_xpath('//div[@class="container"]//div[@class="p-name"]/a').get_attribute('href')
-        #         if url not in None:
-        #             redis.lpush('jdlist:start_urls',url)
-        #             urls.append(url)
-        #         yield
-            urls |= set(url_list)
+
+            for sel in self.driver.find_elements_by_xpath("//div[@class='container']//li[@class='gl-item']//div[@class='p-name']/a"):
+                url = sel.find_elements_by_xpath('//div[@class="container"]//div[@class="p-name"]/a').get_attribute('href')
+                if url not in None:
+                    redis.lpush('jdlist:start_urls',url)
+                    urls.append(url)
+                yield
 
             try:
                 wait = WebDriverWait(self.driver,2)
