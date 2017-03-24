@@ -22,7 +22,7 @@ class jdListCrawler(scrapy.Spider):
     #     self.driver.set_page_load_timeout(5)  # throw a TimeoutException when thepage load time is more than 5 seconds.
     #     # super(jdListCrawler, self).__init__(*args,**kargs)
     start_urls = [
-        "http://list.jd.com/list.html?cat=1315,1343,9712",  # 外套
+        "http://list.jd.com/list.html?cat=1315,1343,9712"
         #                     "http://list.jd.com/list.html?cat=1315,1343,9717"#长裤
     ]
 
