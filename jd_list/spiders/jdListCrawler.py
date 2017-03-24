@@ -11,11 +11,11 @@ class jdListCrawler(RedisSpider):
     name='jd'
     redis_keys = 'jdlist:start_urls'
 
-    def __init__(self,*args,**kargs):
+    def __init__(self):
         allowed_domains = ['www.jd.com','jd.com']
         self.driver = webdriver.Firefox()
         self.driver.set_page_load_timeout(5)  # throw a TimeoutException when thepage load time is more than 5 seconds.
-        super(jdListCrawler, self).__init__(*args,**kargs)
+        # super(jdListCrawler, self).__init__(*args,**kargs)
 
 
 
