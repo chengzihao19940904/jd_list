@@ -23,7 +23,6 @@ class jdListCrawler(scrapy.Spider):
     #     # super(jdListCrawler, self).__init__(*args,**kargs)
     start_urls = [
         "http://list.jd.com/list.html?cat=1315,1343,9712"
-        #                     "http://list.jd.com/list.html?cat=1315,1343,9717"#长裤
     ]
 
 
