@@ -8,22 +8,19 @@ from redis import Redis
 
 
 class jdListCrawler(scrapy.Spider):
-
+    name='getGoodsList'
     # redis_keys = 'jdlist:start_urls'
-    name = "getGoodsList"
-    allowed_domins = ["jd.com"]
-    # def __init__(self):
-    #     super(jdListCrawler, self).__init__()
-    #     self.start_urls = ['https://list.jd.com/list.html?cat=9987,653,655']
-    #     self.allowed_domain = ['jd.com']
-    #     # domain = kargs.pop('domain','')
-    #     # self.allowed_domains = filter(None,domain.split(','))
-    #     self.driver = webdriver.Firefox()
-    #     self.driver.set_page_load_timeout(5)  # throw a TimeoutException when thepage load time is more than 5 seconds.
-    #     # super(jdListCrawler, self).__init__(*args,**kargs)
-    start_urls = [
-        "http://list.jd.com/list.html?cat=1315,1343,9712"
-    ]
+
+    def __init__(self):
+        super(jdListCrawler, self).__init__()
+        self.start_urls = ['https://list.jd.com/list.html?cat=9987,653,655']
+        self.allowed_domain = ['jd.com']
+        # domain = kargs.pop('domain','')
+        # self.allowed_domains = filter(None,domain.split(','))
+        self.driver = webdriver.Firefox()
+        self.driver.set_page_load_timeout(5)  # throw a TimeoutException when thepage load time is more than 5 seconds.
+        # super(jdListCrawler, self).__init__(*args,**kargs)
+
 
 
     def parse(self,response):
