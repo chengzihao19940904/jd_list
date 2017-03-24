@@ -37,9 +37,9 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
-# ITEM_PIPELINES = {
-# #'scrapy.contrib.pipeline.images.ImagesPipeline': 1
-#                   'jd_list.pipelines.JdListPipeline',}
+ITEM_PIPELINES = {
+#'scrapy.contrib.pipeline.images.ImagesPipeline': 1
+                  'jd_list.pipelines.JdListPipeline',}
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
 
